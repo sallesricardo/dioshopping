@@ -1,0 +1,33 @@
+version: "3.5"
+
+services:
+  backend:
+    image: backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    command: yarn dev
+    volumes:
+      - ./backend:/opt/backend:z
+    env_file:
+      - ./backend/.env
+    environment:
+       NODE_ENV: development
+    ports:
+      - "4005:3000"
+      - "9802:9801"
+
+  frontend:
+    image: frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    command: yarn start
+    volumes:
+      - ./frontend:/opt/frontend:z
+    env_file:
+      - ./frontend/.env
+    environment:
+       NODE_ENV: development
+    ports:
+      - "4004:3000"
